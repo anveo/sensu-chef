@@ -19,7 +19,7 @@ depends "windows", ">= 1.8.8"
 depends "rabbitmq", ">= 2.0.0"
 
 # available @ https://github.com/miah/chef-redis
-depends "redis", ">= 2.1.0"
+depends "redis"
 
 %w[
   ubuntu
