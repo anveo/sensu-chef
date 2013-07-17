@@ -4,9 +4,13 @@ def load_current_resource
 end
 
 action :create do
+  # Check attributes that have defaults require merging onto `select_attributes`
+  # results.  Currently this is only `interval`.
   check = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[type command subscribers standalone handle handlers]
+    %w[type command subscribers standalone handle handlers publish
+       low_flap_threshold high_flap_threshold
+      ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 
   definition = {
@@ -16,7 +20,6 @@ action :create do
   }
 
   sensu_json_file @definition_path do
-    mode 0644
     content definition
   end
 end
